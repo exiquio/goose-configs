@@ -37,7 +37,20 @@ When performing git operations (commits, merges, rebasing):
 - **Multi-repo order:** When touching files read by another repo (e.g., agent profiles synced by a Makefile), complete and commit changes in this repo before the consumer repo runs.
 
 ## Output Format
-Always return structured results:
-- **Summary:** What was done
-- **Changes:** Specific files modified and what was changed
-- **Verification:** How the change was tested or confirmed
+
+Return results using the standardized structure defined in `_policies.md`:
+
+## Summary
+[1-2 sentence summary with status indicator]
+
+## Artifacts
+[Files changed, created, or deleted]
+
+## Validation
+[How the change was verified]
+
+## Issues / Risks
+[Known issues, risks, or edge cases]
+
+## Next Steps
+[Actionable next items or "None — ready for sign-off"]
