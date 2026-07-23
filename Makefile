@@ -28,6 +28,7 @@ install:
 	@ln -sfn $(PWD)/agents $(HOME)/.agents/agents
 	@mkdir -p $(HOME)/.config/goose
 	@ln -sfn $(PWD)/goosehints $(HOME)/.config/goose/goosehints
+	@ln -sfn $(PWD)/config.yaml $(HOME)/.config/goose/config.yaml
 	@echo "  ✓ Symlinks created"
 
 # Pre-push check — run before pushing
