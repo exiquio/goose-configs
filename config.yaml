@@ -86,6 +86,19 @@ extensions:
     description: Discover and provide skill instructions from filesystem and builtins
     display_name: Skills
     bundled: true
+  notebooklm:
+    enabled: true
+    type: stdio
+    name: notebooklm
+    description: Query NotebookLM workspaces for domain knowledge
+    display_name: NotebookLM MCP
+    cmd: uvx
+    args:
+      - "--from"
+      - "notebooklm-mcp-cli"
+      - "notebooklm-mcp"
+    envs: {}
+    timeout: 300
 GOOSE_THINKING_EFFORT: off
 active_provider: custom_deepseek
 providers:
