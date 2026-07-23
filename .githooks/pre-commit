@@ -1,0 +1,51 @@
+#!/bin/bash
+# Pre-commit hook: validate agent profiles before committing
+
+echo "🔍 Validating agent profiles..."
+
+FAILED=0
+
+for f in agents/*.md; do
+    if [ "$f" = "agents/_policies.md" ]; then
+        continue
+    fi
+    
+    BASENAME=$(basename "$f")
+    
+    # Check 1: YAML frontmatter exists
+    if ! head -1 "$f" | grep -q '^---$'; then
+        echo "  ✗ $BASENAME: Missing YAML frontmatter"
+        FAILED=1
+        continue
+    fi
+    
+    # Check 2: Required fields
+    for field in name model; do
+        if ! grep -q "^$field:" "$f"; then
+            echo "  ✗ $BASENAME: Missing '$field' field"
+            FAILED=1
+        fi
+    done
+    
+    # Check 3: Has output format
+    if ! grep -q '## Output Format' "$f"; then
+        echo "  ✗ $BASENAME: Missing Output Format section"
+        FAILED=1
+    fi
+    
+    # Check 4: Has diagnose-before-fixing directive
+    if ! grep -q 'Diagnose before fixing' "$f"; then
+        echo "  ⚠ $BASENAME: Missing diagnose-before-fixing directive"
+    fi
+    
+    echo "  ✓ $BASENAME: OK"
+done
+
+if [ $FAILED -eq 1 ]; then
+    echo ""
+    echo "❌ Validation failed. Fix the issues above before committing."
+    exit 1
+fi
+
+echo ""
+echo "✓ All profiles validated"
