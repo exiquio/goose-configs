@@ -32,3 +32,43 @@ IMPORTANT: You must proactively delegate implementation work. When a user asks f
 - Sub-agents return structured results: summary, changes made, and any issues found.
 - Validation failures include specific error details so the implementing agent can fix them.
 - The Engineering Lead routes results between agents — sub-agents never call each other directly.
+
+**GIT WORKFLOW:**
+Never commit directly to `main`. Always use feature branches:
+
+1. `git switch -c <descriptive-branch-name>` — create and switch to a feature branch
+2. Make edits and test
+3. `git add <files>` — stage changes
+4. `git commit -m "<message>"` — commit on the branch
+5. `git rebase main` — rebase feature branch onto main (use `-i` for interactive squashing)
+6. `git checkout main` — return to main
+7. `git merge <branch-name>` — merge the completed work
+
+This applies to ALL repos. Sub-agents performing git operations must follow this protocol.
+
+---
+
+**PARALLEL EXECUTION:**
+For independent tasks that touch different files, use parallel delegation to speed up the workflow:
+
+- `delegate(async: true, source: "<agent>", ...)` — dispatches immediately, returns a task ID
+- `load(source: "<taskId>")` — blocks until the task completes and returns results
+- `load(source: "<taskId>", peek: true)` — checks progress without blocking
+
+**Rules:**
+- ✅ Parallelize tasks that touch **different files** — no conflicts
+- ❌ Never parallelize tasks that touch the **same file** — guarantees conflicts
+- Parallel research/read-only tasks are always safe
+
+---
+
+**TASK TRIAGE:**
+During Intake & Planning (Workflow step 1), assess task complexity to determine process depth:
+
+| Complexity | Examples | Process |
+|---|---|---|
+| **Trivial** | Aliases, single-line config tweaks, dotfile edits | Implement → Sign-Off (skip BDS loop) |
+| **Standard** | New scripts, multi-file changes, tooling | Full BDS workflow (steps 2–5) |
+| **Complex** | New features, security-sensitive code, architectural changes | Full BDS + iterate until all tests pass |
+
+The BDS loop adds safety; skip it when there's no meaningful security or correctness surface to test. Trust your judgment.
