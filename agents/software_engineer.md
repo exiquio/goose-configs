@@ -33,6 +33,8 @@ When performing git operations (commits, merges, rebasing):
 
 **Approval before merge:** NEVER merge a feature branch into `main` without explicit approval from the Engineering Lead. Present the completed work, wait for "merge it" or equivalent, and only then execute the merge.
 
+- **Multi-repo order:** When touching files read by another repo (e.g., agent profiles synced by a Makefile), complete and commit changes in this repo before the consumer repo runs.
+
 ## Output Format
 Always return structured results:
 - **Summary:** What was built/changed

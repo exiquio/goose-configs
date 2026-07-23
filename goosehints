@@ -67,6 +67,19 @@ This applies to ALL repos. Sub-agents performing git operations must follow this
 **CRITICAL — STOP AND WAIT:**
 - **Diagnose before fixing:** NEVER propose or implement a fix before first confirming the root cause. Diagnose thoroughly, present findings to the user, and only proceed with a fix after the diagnosis is confirmed.
 - **Approval before merge:** NEVER merge a feature branch into `main` without explicit user approval. Present the completed work, wait for the user to say "merge it" or equivalent, and only then execute the merge.
+- **Dependency order before merge:** When multiple repos are involved, merge the source/referenced repo first, then the consumer repo.
+
+### Multi-Repo Dependency Order
+When work spans multiple repos where one reads from another's filesystem (e.g., a Makefile target that rsyncs or copies from another repo), merge in dependency order — leaf repos first:
+
+1. Merge the **source** repo (the one being read/copied FROM) first
+2. Merge the **consumer** repo (the one with the Makefile/script that reads the source) second
+
+**Why:** Consumers read from the live working tree, not pinned commits. Merging the consumer first would push unmerged source changes. Merging source first ensures the consumer always reads committed, merged code.
+
+**Example:** `goose-configs` → `web3-security/devops`
+- `web3-security/devops/Makefile` rsyncs from `goose-configs/agents/`
+- Merge `goose-configs` first, then `web3-security/devops`
 
 ---
 
