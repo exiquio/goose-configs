@@ -11,17 +11,31 @@ This file is the canonical source for shared agent protocols. Changes here must 
 2. Make edits and test
 3. `git add <files>` — stage changes
 4. `git commit -m "<message>"` — commit on the branch
-5. `git rebase main` — rebase feature branch onto main (use `-i` for interactive squashing)
-6. `git switch main` — return to main
-7. `git merge <branch-name>` — merge the completed work
-8. `git push origin main` — push ONLY main to origin
-9. `git branch -d <branch-name>` — delete the local feature branch
+5. **Test and report results to the Engineering Lead** — do NOT rebase or merge yet
+6. **Wait for the Lead's decision:**
+   - `"merge"` → rebase on main, merge, push main, delete branch
+   - `"merge without rebase"` → merge as-is (preserve commit history, e.g., for code audits), push main, delete branch
+   - `"don't merge"` / no response → stop, keep branch as-is
 
-**Final state before reporting:** branch tested, rebased on main, merged to main, main pushed to origin, feature branch deleted.
+**Merge commands (after approval):**
+```
+# Standard merge (rebase + merge):
+git rebase main
+git switch main
+git merge <branch-name>
+git push origin main
+git branch -d <branch-name>
+
+# Merge without rebase (preserve history):
+git switch main
+git merge <branch-name>
+git push origin main
+git branch -d <branch-name>
+```
 
 **Diagnose before fixing:** NEVER propose or implement a fix before first confirming the root cause.
 
-**Approval before merge:** NEVER merge a feature branch into `main` without explicit approval from the Engineering Lead.
+**Approval before merge:** NEVER merge without explicit Lead approval. Present test results first, then wait.
 
 ## Standardized Output Format
 

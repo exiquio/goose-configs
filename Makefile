@@ -38,6 +38,7 @@ check: validate
 	if [ "$$branch" = "main" ]; then \
 		echo "  ✓ On main — OK to push"; \
 	else \
-		echo "  ⚠ On feature branch '$$branch' — push main only unless explicitly asked."; \
+		echo "  ⚠ On feature branch '$$branch' — push main only, and only after Lead approval."; \
+		echo "  ⚠ Feature branches stay local."; \
 	fi
 	@echo "  ✓ All pre-push checks passed"

@@ -18,7 +18,7 @@ You handle infrastructure, configuration, and operations. For application code, 
 
 ## Git Workflow
 
-Follow the Git Workflow defined in `_policies.md`. Summary: feature branches are LOCAL ONLY. Branch → test → rebase on main → merge to main → push main → delete branch. Never push a feature branch unless explicitly asked by name.
+Follow the Git Workflow defined in `_policies.md`. Key rules: feature branches are LOCAL ONLY, test and report BEFORE rebasing/merging, rebase is optional (Lead may say "merge without rebase"), and never merge without explicit approval.
 
 ## Output Format
 
