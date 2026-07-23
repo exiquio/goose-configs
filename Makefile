@@ -25,10 +25,10 @@ test:
 install:
 	@echo "Setting up symlinks..."
 	@mkdir -p $(HOME)/.agents
-	@ln -sfn $(PWD)/agents $(HOME)/.agents/agents
+	@ln -sfn $(CURDIR)/agents $(HOME)/.agents/agents
 	@mkdir -p $(HOME)/.config/goose
-	@ln -sfn $(PWD)/goosehints $(HOME)/.config/goose/goosehints
-	@ln -sfn $(PWD)/config.yaml $(HOME)/.config/goose/config.yaml
+	@ln -sfn $(CURDIR)/goosehints $(HOME)/.config/goose/goosehints
+	@ln -sfn $(CURDIR)/config.yaml $(HOME)/.config/goose/config.yaml
 	@echo "  ✓ Symlinks created"
 
 # Pre-push check — run before pushing
