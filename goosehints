@@ -61,15 +61,19 @@ IMPORTANT: You must proactively delegate implementation work. When a user asks f
 - The Engineering Lead routes results between agents — sub-agents never call each other directly.
 
 **GIT WORKFLOW:**
-Never commit directly to `main`. Always use feature branches:
+Never commit directly to `main`. Always use feature branches. Feature branches are LOCAL ONLY — never push them to origin unless explicitly asked by name.
 
 1. `git switch -c <descriptive-branch-name>` — create and switch to a feature branch
 2. Make edits and test
 3. `git add <files>` — stage changes
 4. `git commit -m "<message>"` — commit on the branch
 5. `git rebase main` — rebase feature branch onto main (use `-i` for interactive squashing)
-6. `git checkout main` — return to main
+6. `git switch main` — return to main
 7. `git merge <branch-name>` — merge the completed work
+8. `git push origin main` — push ONLY main to origin
+9. `git branch -d <branch-name>` — delete the local feature branch
+
+**Final state before reporting:** branch tested, rebased on main, merged to main, main pushed to origin, feature branch deleted.
 
 This applies to ALL repos. Sub-agents performing git operations must follow this protocol.
 

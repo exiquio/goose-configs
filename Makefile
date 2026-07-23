@@ -34,9 +34,10 @@ install:
 # Pre-push check — run before pushing
 check: validate
 	@echo "Running pre-push checks..."
-	@if git rev-parse --abbrev-ref HEAD | grep -q '^main$$'; then \
-		echo "  ✗ DO NOT push directly to main. Use a feature branch."; \
-		exit 1; \
+	@branch=$$(git rev-parse --abbrev-ref HEAD); \
+	if [ "$$branch" = "main" ]; then \
+		echo "  ✓ On main — OK to push"; \
+	else \
+		echo "  ⚠ On feature branch '$$branch' — push main only unless explicitly asked."; \
 	fi
-	@echo "  ✓ Branch check passed"
 	@echo "  ✓ All pre-push checks passed"
