@@ -19,3 +19,6 @@ Thumbs.db
 
 # Goose runtime
 COMMIT_EDITMSG
+
+# Session state (runtime, not source)
+STATE.md
