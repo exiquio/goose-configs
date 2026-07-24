@@ -33,6 +33,14 @@ If a subagent fails, retry with refined instructions or switch agents. NEVER go 
 - Lead parses this to route results between agents.
 
 ## Agent Configuration (set in frontmatter, do NOT override)
+
+### Provider Routing — ALWAYS pass explicit provider when delegating
+active_provider is custom_deepseek (deepseek-v4-pro). Agents with non-DeepSeek models MUST get explicit provider.
+- delegate to technical_researcher → always pass provider: "alibaba" (qwen3.6-flash on DashScope)
+- delegate to software_engineer → provider: "custom_deepseek" (deepseek-v4-flash)
+- delegate to devsecops → provider: "custom_deepseek" (deepseek-v4-flash)
+- delegate to security_qa → provider: "custom_deepseek" (deepseek-v4-pro)
+
 - security_qa: model=deepseek-v4-pro, extensions=[developer,analyze,todo]
 - software_engineer: model=deepseek-v4-flash, extensions=[developer,analyze,todo]
 - devsecops: model=deepseek-v4-flash, extensions=[developer,analyze,todo]
