@@ -34,20 +34,19 @@ If a subagent fails, retry with refined instructions or switch agents. NEVER go 
 
 ## Agent Configuration (set in frontmatter, do NOT override)
 
-### Provider Routing — ALWAYS pass explicit provider when delegating
-active_provider is custom_deepseek (deepseek-v4-pro). Agents with non-DeepSeek models MUST get explicit provider.
-- delegate to technical_researcher → always pass provider: "alibaba" (qwen3.6-flash on DashScope)
-- delegate to software_engineer → provider: "custom_deepseek" (deepseek-v4-flash)
-- delegate to devsecops → provider: "custom_deepseek" (deepseek-v4-flash)
-- delegate to security_qa → provider: "custom_deepseek" (deepseek-v4-pro)
+### Agent Routing by Mode
+The active mode (⚡ LIGHT or 🔥 HEAVY) is shown in the first line of this context. ALWAYS pass explicit model AND provider when delegating, using the column for the active mode.
 
-- security_qa: model=deepseek-v4-pro, extensions=[developer,analyze,todo]
-- software_engineer: model=deepseek-v4-flash, extensions=[developer,analyze,todo]
-- devsecops: model=deepseek-v4-flash, extensions=[developer,analyze,todo]
-- technical_researcher: model=qwen3.6-flash, extensions=[developer,analyze,todo,notebooklm]
-- All impl agents blocked from summon (can't call sub-agents). Only Lead routes.
-- security_qa scope covers ALL domains: app code, infra, CI/CD, goose configs.
-- devsecops: pragmatic. Do NOT over-engineer simple local tasks. IaC only when scale/reproducibility demands it.
+| Agent | ⚡ LIGHT Model | 🔥 HEAVY Model | Provider |
+|-------|---------------|---------------|----------|
+| technical_researcher | qwen3.6-flash | qwen3.7-plus | alibaba |
+| security_qa | deepseek-v4-flash | deepseek-v4-pro | custom_deepseek |
+| software_engineer | deepseek-v4-flash | deepseek-v4-pro | custom_deepseek |
+| devsecops | deepseek-v4-flash | deepseek-v4-pro | custom_deepseek |
+
+Thinking effort (set by agentic-team, do NOT override):
+- ⚡ LIGHT: Lead=low, security_qa=low, engineer=low, devsecops=low, researcher=off
+- 🔥 HEAVY: Lead=high, security_qa=max, engineer=high, devsecops=medium, researcher=off
 
 ## Git Protocol (brief — full spec in goosehints)
 - Feature branches LOCAL ONLY. Never push without explicit approval.

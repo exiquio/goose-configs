@@ -115,4 +115,5 @@ providers:
     enabled: true
     model: qwen3.6-flash
     configured: true
+  # qwen3.7-plus also available via this provider — passed explicitly in delegate()
 
