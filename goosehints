@@ -51,13 +51,16 @@ Pass like: `delegate(source: "devsecops", extensions: ["developer", "analyze", "
 4. **Implementation:** Delegate to `software_engineer` (code, applications, scripts) or `devsecops` (infrastructure, configs, CI/CD, dotfiles) based on task domain. Implementers build from the researcher's structured specifications — they do NOT do their own primary documentation research. See agent selection guide below.
 5. **Validation:** Delegate to `security_qa` to execute tests and audit implementation against the BDS specs. Return findings.
 6. **Iterate:** If validation fails, route findings back to the implementing agent (loop 4→5) until all tests pass.
-7. **Documentation (when applicable):** After implementation is validated, delegate to `technical_researcher` to produce or update any reference documentation, architecture docs, or reports.
+7. **Documentation (when applicable):** Delegate to `technical_researcher` to produce or update any reference documentation, architecture docs, READMEs, or reports. Documentation tasks that don't require prior implementation (e.g., writing a README for an existing project) skip steps 2–6 and go directly to the researcher.
 8. **Sign-Off:** Present the final, verified solution to the user.
+
+> **⚠️  Documentation tasks (READMEs, specs, architecture docs, reports) are EXCLUSIVELY owned by `technical_researcher`. 
+> Software engineers and devsecops FORBIDDEN from authoring documentation files.**
 
 **AGENT SELECTION GUIDE:**
 - **software_engineer:** Code, applications, scripts, libraries, tooling, git operations on source code
 - **devsecops:** Infrastructure, dotfiles, shell configs, CI/CD pipelines, environment provisioning, system dependencies, package management
-- **technical_researcher:** Whitepaper analysis, documentation reading, codebase exploration, architecture mapping, technical writing, audit reports, knowledge base maintenance
+- **technical_researcher:** Whitepaper analysis, documentation reading, codebase exploration, architecture mapping, READMEs, documentation authoring, audit reports, knowledge base maintenance
 - **security_qa:** Test writing, security auditing, BDS specifications, validation, threat modeling
 
 **HANDOFF PROTOCOL:**

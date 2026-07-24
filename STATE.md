@@ -1,7 +1,7 @@
 # Goose Session State — Persistent Context
 
 > Auto-loaded via MOIM every turn. Update after significant milestones.
-> Last updated: 2026-07-24 11:10 +07:00
+> Last updated: 2026-07-24 11:30 +07:00
 
 ## Current Work
 
@@ -14,14 +14,16 @@ Config review complete — 8 issues identified and fixed, architecture verified 
 - **Subagents:** devsecops, security_qa, software_engineer (live in agents/)
 - **Extensions:** developer, analyze, todo, summon, notebooklm, skills, extensionmanager, tom, apps
 
-## Delegation Enforcement (2 Layers)
+## Delegation Enforcement (3 Layers)
 
-1. **guardrails.md (MOIM-injected)** — BEHAVIORAL. 'NEVER use shell/write/edit, delegate everything.' Applies to main agent only.
+1. **guardrails.md (MOIM-injected every turn)** — BEHAVIORAL. Cannot context-drift. Covers delegation invariant, failure protocol, process invariants (circuit breaker, diagnose-before-fixing, secret scanning), agent configuration, git protocol, task triage, domain boundaries, and session state.
 1. **permission.yaml** — INTERACTIVE. smart_approve: shell/write/edit/delegate ask before.
+1. **guardrails.md domain boundaries** — PERSISTENT. Injected every turn via MOIM. Maps every agent to its exclusive domain. Prevents misrouting (e.g., READMEs to software_engineer).
 
 ## Key Decisions
 
-- goosehints is too weak for enforcement (loaded once, context-drifted). Use for workflow reference only.
+- Domain boundaries live in guardrails.md (MOIM-injected every turn), NOT just goosehints (loaded once, context-drifts). This prevents the "routing knowledge evaporates" failure mode.
+- goosehints is instructional only (loaded once, context-drifted). All enforcement rules live in guardrails.md (MOIM-injected every turn).
 - available_tools removed from config.yaml — delegation enforced solely via MOIM guardrails + permission.yaml
 - config.rescue.yaml and make rescue/restore are now retired (no longer needed — config.yaml has no available_tools)
 - Feature branches are LOCAL ONLY. Never push without explicit approval.
@@ -54,6 +56,10 @@ Config review complete — 8 issues identified and fixed, architecture verified 
 - [x] Local delegation test passed (write/read/delete pipeline)
 - [x] VM sync verified (agent file at ~/.agents/agents/technical_researcher.md, model confirmed)
 - [x] Both repos committed and pushed (goose-configs: 57c8a3c, devops: ebb9d15)
+- [x] Domain boundaries added to guardrails.md — technical_researcher explicitly owns READMEs, docs; impl agents FORBIDDEN from docs
+- [x] guardrails.md expanded: 4 new sections (Process Invariants, Agent Configuration, Git Protocol, Task Triage) covering 21 previously missing rules
+- [x] Cross-reference audit complete: 27 gaps found, 21 fixed (11 critical + 10 important), 6 cosmetic deferred
+- [x] 5 READMEs written across all ~/Code/Personal repos
 
 ## Active Branches
 
