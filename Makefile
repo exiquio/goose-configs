@@ -42,3 +42,16 @@ check: validate
 		echo "  ⚠ Feature branches stay local."; \
 	fi
 	@echo "  ✓ All pre-push checks passed"
+
+# Emergency rescue: switch to full-access config
+rescue:
+	@echo "⚠ Switching to RESCUE config (full developer access)..."
+	@ln -sfn $(CURDIR)/config.rescue.yaml $(HOME)/.config/goose/config.yaml
+	@echo "  ✓ Rescue config active. Restart goose for full tools."
+	@echo "  Run 'make restore' to switch back."
+
+# Restore: switch back to restricted config
+restore:
+	@echo "♻ Restoring restricted config..."
+	@ln -sfn $(CURDIR)/config.yaml $(HOME)/.config/goose/config.yaml
+	@echo "  ✓ Restricted config restored. Restart goose."
