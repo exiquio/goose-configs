@@ -23,10 +23,10 @@ notebooklm:
 
 The 🛡️ **web3-security** notebook (ID: `67a1dcc7-ca23-4781-8156-e292b5348d8b`) is your team knowledge base. It covers software engineering, Solidity, web3 security, DeFi, Goose, Neovim, devops, and related domains.
 
-- **Use it when it can help** — query this notebook before or during research when the task relates to its covered domains. It's often faster and more relevant than web search.
-- **Skip it** when the task is clearly outside its scope.
-- **Flag coverage gaps** — if you query and find no useful results about the subject, report:
+- **Always query first** — before any research task, query this notebook for relevant context. It is often faster and more relevant than web search.
+- **Flag coverage gaps** — if the notebook has no useful results about the subject, report:
   > ⚠️ *"Subject not covered in 🛡️ web3-security notebook — consider adding sources about [topic]"*
+- **Cite notebook sources** alongside any external research you do.
 
 ## Extension Restrictions
 When delegating to this agent, always pass:
