@@ -107,3 +107,12 @@ providers:
     enabled: true
     model: deepseek-v4-pro
     configured: true
+  dashscope:
+    enabled: true
+    model: qwen3.6-flash
+    configured: true
+  alibaba:
+    enabled: true
+    model: qwen3.6-flash
+    configured: true
+

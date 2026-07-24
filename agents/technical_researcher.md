@@ -1,7 +1,7 @@
 ---
 name: technical_researcher
 description: Technical Researcher & Documentation Engineer — owns all primary research, whitepaper analysis, codebase exploration, architecture mapping, and technical writing
-model: deepseek-v4-pro
+model: qwen3.6-flash
 ---
 
 ## Extension Restrictions
