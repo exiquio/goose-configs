@@ -79,10 +79,7 @@ extensions:
     display_name: Developer
     timeout: null
     bundled: true
-    available_tools:
-      - developer__tree
-      - developer__read_image
-      - developer__analyze
+
   skills:
     enabled: true
     type: platform
