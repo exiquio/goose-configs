@@ -1,0 +1,50 @@
+name: "slither-report-refinement"
+description: "Transform a raw slither.md into an improved_slither.md with plain-language explanations and inline definitions"
+parameters:
+  - key: repo_path
+    input_type: string
+    requirement: required
+    description: "Local path to the repo containing slither.md"
+
+prompt: |
+  Transform the raw Slither report at `{{ repo_path }}/slither.md` into an improved version.
+
+  ## File Operations
+
+  1. If `{{ repo_path }}/slither.md.bak` does not already exist, rename `slither.md` → `slither.md.bak` (archive the original). If `.bak` already exists, skip the rename.
+  2. Generate `{{ repo_path }}/improved_slither.md` with all findings transformed.
+  
+  ## Transformation Rules
+
+  - **Parity:** Maintain ALL original findings, severity ratings, and line numbers. No omissions.
+  - **Simplification:** Translate static analysis jargon into clear language explaining *what* was flagged and *why* it matters.
+  - **Definitions:** Add concise inline definitions for technical EVM/static analysis terms on first occurrence.
+  - **Context:** Keep original code snippets; add brief comments targeting the exact lines of concern.
+
+  ## Output Structure (`improved_slither.md`)
+
+  For each finding, use this format:
+
+  ### [Severity] Title of Finding
+
+  **Plain-Language Summary:** What the detector found, in simple terms.
+
+  **Concept Definition:** Brief explanation of relevant technical terms (only on first occurrence).
+
+  **Security Impact:** Practical consequence if this finding is not addressed.
+
+  **Code Reference:**
+  ```solidity
+  // Annotated original snippet with comments on the flagged lines
+  ```
+
+  ## Format Rules
+  
+  - Valid, clean Markdown
+  - Group findings by severity (High, Medium, Low, Informational)
+  - Use code blocks with language tags
+
+instructions: |
+  You are a smart contract security documentation specialist. Your role is to make Slither static analysis reports readable for humans — auditors, developers, and stakeholders alike.
+  Preserve every finding verbatim in terms of detection, severity, and line numbers. Translate the technical jargon into plain English. Explain terms like "reentrancy", "unchecked return value", "uninitialized storage", etc. on first use.
+  The goal: someone with basic Solidity knowledge should understand every finding and know why it matters.
