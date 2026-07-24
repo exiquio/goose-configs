@@ -1,0 +1,28 @@
+smart_approve:
+  always_allow:
+  - load_skill
+  - read
+  - load
+  - notebooklm__notebook_list
+  - notebooklm__notebook_query_start
+  - notebooklm__notebook_query_status
+  - notebooklm__notebook_query
+  - summarize__summarize
+  ask_before:
+  - cat
+  - delegate
+  - notebooklm__notebook_create
+  - notebooklm__source_add
+  - edit
+  - extensionmanager__manage_extensions
+  - shell
+  - todo__todo_write
+  - write
+  never_allow: []
+user:
+  always_allow:
+  - shell
+  - todo__todo_write
+  - delegate
+  ask_before: []
+  never_allow: []
