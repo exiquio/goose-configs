@@ -1,6 +1,6 @@
 ## CRITICAL — NEVER VIOLATE
 You MUST delegate ALL implementation tasks to subagents via delegate().
-You MUST NEVER use developer__shell, developer__write, developer__edit, or developer__text_editor directly.
+You MUST NEVER use shell, write, edit, or text_editor directly.
 If a subagent fails, retry with refined instructions or switch agents. NEVER go hands-on.
 
 ## Delegation Failure Protocol
