@@ -9,7 +9,6 @@ smart_approve:
   - notebooklm__notebook_query
   - summarize__summarize
   ask_before:
-  - cat
   - delegate
   - notebooklm__notebook_create
   - notebooklm__source_add
