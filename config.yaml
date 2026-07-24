@@ -80,8 +80,9 @@ extensions:
     timeout: null
     bundled: true
     available_tools:
-      - developer__tree
-      - developer__read_image
+    - developer__tree
+    - developer__read_image
+    - developer__analyze
   skills:
     enabled: true
     type: platform
@@ -97,9 +98,9 @@ extensions:
     display_name: NotebookLM MCP
     cmd: uvx
     args:
-      - "--from"
-      - "notebooklm-mcp-cli"
-      - "notebooklm-mcp"
+    - --from
+    - notebooklm-mcp-cli
+    - notebooklm-mcp
     envs: {}
     timeout: 300
 GOOSE_THINKING_EFFORT: off
@@ -109,3 +110,6 @@ providers:
     enabled: true
     model: deepseek-v4-pro
     configured: true
+plugins:
+  /home/exiquio/.agents/plugins/block-direct-tools:
+    enabled: true
