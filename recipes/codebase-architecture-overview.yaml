@@ -1,0 +1,64 @@
+name: "codebase-architecture-overview"
+description: "Generate a reference-grade architecture overview of an EVM/Solidity codebase"
+parameters:
+  - key: repo_path
+    input_type: string
+    requirement: required
+    description: "Local path to the protocol repository"
+
+prompt: |
+  Analyze the EVM/Solidity codebase at `{{ repo_path }}` and produce `ARCHITECTURE_OVERVIEW.md`.
+
+  ## Scope Rules
+
+  - In-scope: Production contracts in `src/`, `contracts/`
+  - Out-of-scope: Tests, scripts, mocks, vendor libraries (`lib/`, `node_modules/`)
+  - Cover 100% of in-scope `.sol` files in the contract inventory table
+  - Read-only on repo files. Write only to the output markdown file.
+
+  ## Output: `ARCHITECTURE_OVERVIEW.md`
+
+  Save the file to `{{ repo_path }}/ARCHITECTURE_OVERVIEW.md`. It MUST contain all of the following sections:
+
+  ### 1. Executive Protocol Summary
+  - Core financial/business logic model
+  - System actors and authorization levels
+  - In-scope tokens/assets and their roles
+
+  ### 2. Architecture & Component Topology
+  - Contract inventory table (file path, role, proxy/pattern type)
+  - Contract inheritance and dependency hierarchy
+  - Cross-contract call graph (user entry points → internal calls → external integrations)
+
+  ### 3. State & Asset Flow
+  - Exact locations where user/protocol funds are held or routed
+  - Explicit state invariants and core mathematical assumptions
+  - System state transition map (e.g., active, paused, shutdown)
+
+  ### 4. Trust Model & External Dependencies
+  - Oracle dependencies, fallback logic, and price feed assumptions
+  - External protocol integrations (e.g., DEXs, lending markets)
+  - Privileged role function matrix (roles, modifiers, timelock constraints, powers)
+
+  ### 5. Specification vs. Implementation Discrepancies
+  - Features present in code but absent from documentation
+  - Direct contradictions between documented intent and implemented code
+  - Dead code, unhandled TODOs, or incomplete functionality
+
+  ### 6. High-Risk Attack Surface Zones
+  - Modules using Yul/assembly, low-level calls (delegatecall, call), or custom math
+  - Modules with the highest density of cross-contract calls and fund custody
+
+  ## Format Rules
+
+  - All diagrams MUST use valid, renderable Mermaid.js syntax
+  - Output file must be valid, clean Markdown
+  - Use the codebase analysis tools available to explore the repo thoroughly
+
+instructions: |
+  You are a smart contract architecture analyst. Your task is to produce a thorough,
+  reference-grade architecture overview of the EVM protocol at the specified path.
+  Use your codebase exploration and analysis tools to understand every in-scope contract.
+  Cross-reference any documentation (READMEs, markdown files, whitepapers) against the
+  actual Solidity code to find discrepancies. Output the result to ARCHITECTURE_OVERVIEW.md
+  in the repo root. Be thorough - this document will be used for audit planning.
